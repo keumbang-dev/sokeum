@@ -24,3 +24,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* 카드 Stroke 그라데이션 스타일 */
+.border-gradient-to-br {
+  border-image: linear-gradient(to bottom right, white 0%, rgba(255, 255, 255, 0) 100%) 1;
+  border-image-slice: 1;
+}
+
+.border-gradient-to-r {
+  border-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, white 50%, rgba(255, 255, 255, 0) 100%) 1;
+  border-image-slice: 1;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
