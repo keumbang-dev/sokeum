@@ -1,8 +1,6 @@
 "use client";
 
 import { MenuItemProps } from "@/components/layout/HeaderMenu";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -12,10 +10,27 @@ interface MobileMenuProps {
 }
 
 const MobileMenuItem = ({ href, label, isActive, onClick }: MenuItemProps & { onClick: () => void }) => {
+  // 스크롤 이동 함수
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      window.scrollTo({
+        top: targetElement.offsetTop - 100, // 헤더 높이를 고려하여 오프셋 적용
+        behavior: "smooth",
+      });
+    }
+
+    // 메뉴 닫기 함수 호출
+    if (onClick) onClick();
+  };
+
   return (
-    <Link
+    <a
       href={href}
-      onClick={onClick}
+      onClick={handleClick}
       className={`flex items-center px-6 py-2 ${
         isActive
           ? "text-[#D95204] bg-gradient-to-r from-[#D95204]/10 to-transparent border-l-2 border-[#D95204]"
@@ -23,7 +38,7 @@ const MobileMenuItem = ({ href, label, isActive, onClick }: MenuItemProps & { on
       } transition-all duration-300 text-base`}
     >
       {label}
-    </Link>
+    </a>
   );
 };
 
@@ -76,10 +91,42 @@ export const MobileMenuContainer = ({ triggerButton }: MobileMenuContainerProps)
 };
 
 const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
-  const pathname = usePathname();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("section-gold-price");
 
-  const isActive = (path: string) => pathname === path;
+  // 스크롤 위치에 따라 활성 섹션 업데이트
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const sections = ["section-gold-price", "section-about"];
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 150; // 헤더 높이와 여유 공간 고려
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          // 요소의 상단이 스크롤 위치보다 위에 있고, 요소의 하단이 스크롤 위치보다 아래에 있으면 활성화
+          if (offsetTop <= scrollPosition && offsetTop + offsetHeight > scrollPosition) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // 초기 로드 시 실행
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 현재 활성화된 메뉴 아이템 확인
+  const isActive = (href: string) => {
+    const sectionId = href.replace("#", "");
+    return sectionId === activeSection;
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -114,11 +161,16 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
         <div className="p-6 pt-24 flex flex-col h-full">
           <div className="space-y-1">
-            <MobileMenuItem href="/" label="오늘 금 시세" isActive={isActive("/")} onClick={onClose} />
             <MobileMenuItem
-              href="/description"
+              href="#section-gold-price"
+              label="오늘 금 시세"
+              isActive={isActive("#section-gold-price")}
+              onClick={onClose}
+            />
+            <MobileMenuItem
+              href="#section-about"
               label="소금, 뭐하는 서비스예요?"
-              isActive={isActive("/description")}
+              isActive={isActive("#section-about")}
               onClick={onClose}
             />
           </div>

@@ -38,7 +38,7 @@ export default function Home() {
       <Header />
       <section className="flex flex-col items-center w-full px-4 sm:px-6 md:px-8 self-stretch gap-16 sm:gap-20 md:gap-32 lg:gap-40 py-10 sm:py-16 md:py-24 lg:py-32">
         {/* 메인 캐치프레이즈 */}
-        <div className="flex flex-col items-center gap-8 sm:gap-12 md:gap-16 w-full">
+        <div id="section-gold-price" className="flex flex-col items-center gap-8 sm:gap-12 md:gap-16 w-full">
           <div className="flex flex-col items-center gap-2 w-full max-w-screen-lg">
             <div className="flex flex-col items-center">
               <span className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5em] text-center text-white">
@@ -106,7 +106,7 @@ export default function Home() {
           </div>
         </div>
         {/* 소금 서비스 소개 */}
-        <div className="flex flex-col items-center gap-10 sm:gap-16 md:gap-20 w-full">
+        <div id="section-about" className="flex flex-col items-center gap-10 sm:gap-16 md:gap-20 w-full">
           <div className="flex flex-col items-center gap-2 w-full max-w-screen-lg">
             <div className="flex flex-col items-center">
               <SokeumLogo size="large" />
