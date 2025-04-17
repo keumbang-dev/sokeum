@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import AmplitudeProvider from "@/components/AmplitudeProvider";
 
 const pretendard = localFont({
   // 이때 node_modules는 해당 파일 위치의 상대경로로 한다.
@@ -32,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${pretendard.className} ${raleway.variable} ${pretendard.variable} antialiased`}>
-        {children}
+        <AmplitudeProvider>{children}</AmplitudeProvider>
       </body>
     </html>
   );
