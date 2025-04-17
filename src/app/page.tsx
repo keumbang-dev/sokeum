@@ -8,14 +8,15 @@ import ServiceIntroCard from "@/components/cards/ServiceIntroCard";
 import InfoCard from "@/components/cards/InfoCard";
 import InfoIcon from "@/components/icons/InfoIcon";
 import SokeumLogo from "@/components/ui/SokeumLogo";
+import HomePageTracker from "@/components/HomePageTracker";
 
 export const metadata: Metadata = {
-  title: "소금 | 소중한 나의 금, 가장 비싸게 파는 방법",
+  title: "소금 | 소중한 나의 금",
   description:
     "금 매매에 최적화된 가격으로 소중한 금을 거래하세요. 금시세 정보와 실시간 계산기로 편리하게 가격을 확인할 수 있습니다.",
   keywords: ["금 매매", "금 판매", "금 시세", "금 계산기", "금방", "소금"],
   openGraph: {
-    title: "소금 | 소중한 나의 금, 가장 비싸게 파는 방법",
+    title: "소금 | 소중한 나의 금",
     description:
       "금 매매에 최적화된 가격으로 소중한 금을 거래하세요. 금시세 정보와 실시간 계산기로 편리하게 가격을 확인할 수 있습니다.",
     images: [
@@ -35,11 +36,12 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="flex flex-col items-center bg-[#110703] text-white min-h-screen">
+      <HomePageTracker />
       <Header />
-      <section className="flex flex-col items-center w-full px-4 sm:px-6 md:px-8 self-stretch gap-16 sm:gap-20 md:gap-32 lg:gap-40 py-10 sm:py-16 md:py-24 lg:py-32">
+      <section className="flex flex-col items-center self-stretch w-full gap-16 px-4 py-10 sm:px-6 md:px-8 sm:gap-20 md:gap-32 lg:gap-40 sm:py-16 md:py-24 lg:py-32">
         {/* 메인 캐치프레이즈 */}
-        <div id="section-gold-price" className="flex flex-col items-center gap-8 sm:gap-12 md:gap-16 w-full">
-          <div className="flex flex-col items-center gap-2 w-full max-w-screen-lg">
+        <div id="section-gold-price" className="flex flex-col items-center w-full gap-8 sm:gap-12 md:gap-16">
+          <div className="flex flex-col items-center w-full max-w-screen-lg gap-2">
             <div className="flex flex-col items-center">
               <span className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5em] text-center text-white">
                 소중한 나의 금,
@@ -52,19 +54,19 @@ export default function Home() {
             </div>
           </div>
           {/* 가격 비교 및 계산기 */}
-          <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-8 sm:gap-10 w-full">
+          <div className="flex flex-col items-center justify-center w-full gap-8 lg:flex-row lg:items-start sm:gap-10">
             <GoldPriceCard />
             <GoldCalculatorCard />
           </div>
         </div>
         {/* 구매 관련 안내 */}
-        <div className="flex flex-col items-center gap-10 sm:gap-16 md:gap-20 w-full">
-          <div className="flex flex-col items-center gap-2 w-full max-w-screen-lg">
+        <div className="flex flex-col items-center w-full gap-10 sm:gap-16 md:gap-20">
+          <div className="flex flex-col items-center w-full max-w-screen-lg gap-2">
             <div className="flex flex-col items-center">
               <span className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5em] text-center text-white">
                 소중한 나의 금,
               </span>
-              <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
+              <div className="flex flex-col items-center gap-1 sm:flex-row sm:gap-4">
                 <div className="flex items-center gap-1">
                   <span className="text-3xl sm:text-4xl md:text-5xl leading-[1.5em] text-center">
                     돈당&nbsp;
@@ -79,7 +81,7 @@ export default function Home() {
                 </span>
               </div>
             </div>
-            <div className="flex justify-center items-center gap-2 mt-2">
+            <div className="flex items-center justify-center gap-2 mt-2">
               <InfoIcon />
               <span className="text-base sm:text-lg md:text-xl font-medium leading-[1.5em] text-left text-[#737373]">
                 사는 건 아직 준비 중이에요.
@@ -87,7 +89,7 @@ export default function Home() {
             </div>
           </div>
           {/* 위치 및 전화 정보 카드 */}
-          <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 sm:gap-10 w-full max-w-screen-lg">
+          <div className="flex flex-col items-stretch justify-center w-full max-w-screen-lg gap-8 md:flex-row sm:gap-10">
             <InfoCard
               imageSrc="/assets/image_aada6e52.png"
               title="종로3가역 15번 출구 바로 앞"
@@ -106,8 +108,8 @@ export default function Home() {
           </div>
         </div>
         {/* 소금 서비스 소개 */}
-        <div id="section-about" className="flex flex-col items-center gap-10 sm:gap-16 md:gap-20 w-full">
-          <div className="flex flex-col items-center gap-2 w-full max-w-screen-lg">
+        <div id="section-about" className="flex flex-col items-center w-full gap-10 sm:gap-16 md:gap-20">
+          <div className="flex flex-col items-center w-full max-w-screen-lg gap-2">
             <div className="flex flex-col items-center">
               <SokeumLogo size="large" />
               <span className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5em] text-center text-white">
