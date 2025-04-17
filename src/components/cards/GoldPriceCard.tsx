@@ -4,6 +4,11 @@ import CardContainer from "../ui/CardContainer";
 import SokeumLogo from "../ui/SokeumLogo";
 import { ReactNode } from "react";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 // 거래소 표시 컴포넌트
 interface TraderLabelProps {
@@ -267,7 +272,7 @@ const GoldPriceCard = () => {
       <div className="flex items-center self-stretch justify-center gap-2">
         <InfoIcon />
         <span className="text-sm sm:text-base md:text-xl font-normal leading-[1.5em] text-left text-[#737373]">
-          {dayjs().format("YYYY.MM.DD HH:mm")} 실시간 업데이트 • 1돈 24K 기준
+          {dayjs().tz("Asia/Seoul").format("YYYY.MM.DD HH:mm")} 실시간 업데이트 • 1돈 24K 기준
         </span>
       </div>
     </div>
