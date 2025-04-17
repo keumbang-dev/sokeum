@@ -149,13 +149,13 @@ export const goldPriceData = {
   // 내가 팔 때 가격들
   sokeumSellPrice: 568390, // sokeum 내가 팔 때 가격
   koreaGoldSellPrice: 549000, // 한국금거래소 내가 팔 때 가격
-  sGoldSellPrice: 500000, // S 금거래소 내가 팔 때 가격
+  sGoldSellPrice: 550000, // S 금거래소 내가 팔 때 가격
   jongnoWholesaleSellPrice: 551000, // 종로 도매 평균가 내가 팔 때 가격
 
   // 내가 살 때 가격들
   sokeumBuyPrice: 571730, // sokeum 내가 살 때 가격
   koreaGoldBuyPrice: 665000, // 한국금거래소 내가 살 때 가격
-  sGoldBuyPrice: 654500, // S 금거래소 내가 살 때 가격
+  sGoldBuyPrice: 655000, // S 금거래소 내가 살 때 가격
   jongnoWholesaleBuyPrice: 613800, // 종로 도매 평균가 내가 살 때 가격
 
   // 가격 변동 정보
