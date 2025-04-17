@@ -6,6 +6,8 @@ import PurityChip from "../ui/PurityChip";
 import KeypadButton from "../ui/KeypadButton";
 import CardContainer from "../ui/CardContainer";
 import { goldPriceData } from "./GoldPriceCard";
+import { logEvent } from "@/lib/amplitude";
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 // 소금 내가 팔 때 가격 (GoldPriceCard에서 가져옴)
 const SOKEUM_SELL_PRICE = goldPriceData.sokeumSellPrice;
@@ -33,6 +35,7 @@ const GoldCalculatorCard = () => {
   const [weight, setWeight] = useState("0");
   const [displayWeight, setDisplayWeight] = useState("0");
   const [calculatedPrice, setCalculatedPrice] = useState("0");
+  const deviceType = useDeviceType();
 
   // displayWeight 업데이트
   useEffect(() => {
@@ -53,9 +56,19 @@ const GoldCalculatorCard = () => {
 
   const handlePurityChange = (newPurity: string) => {
     setPurity(newPurity);
+
+    // 순도 변경 이벤트 로깅
+    logEvent("click_calculate_purity", {
+      device_type: deviceType,
+      purity_value: newPurity,
+      current_weight: weight,
+    });
   };
 
   const handleKeypadClick = (value: string) => {
+    // 이전 값 저장
+    const prevWeight = weight;
+
     if (value === "delete") {
       setWeight((prev) => (prev.length > 1 ? prev.slice(0, -1) : "0"));
     } else if (value === ".") {
@@ -71,6 +84,25 @@ const GoldCalculatorCard = () => {
         setWeight(newValue);
       }
     }
+
+    // 키패드 클릭 이벤트 로깅
+    logEvent("click_calculate_keypad", {
+      device_type: deviceType,
+      keypad_value: value,
+      previous_weight: prevWeight,
+      current_weight:
+        weight === "0" && value !== "delete" && value !== "."
+          ? value
+          : value === "." && !weight.includes(".")
+          ? weight + "."
+          : value === "delete"
+          ? weight.length > 1
+            ? weight.slice(0, -1)
+            : "0"
+          : weight === "0"
+          ? value
+          : weight + value,
+    });
   };
 
   // 가격 계산 로직
@@ -117,7 +149,7 @@ const GoldCalculatorCard = () => {
   return (
     <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-[449px] md:h-[668px]">
       {/* 순도 선택 */}
-      <div className="grid grid-cols-5 w-full gap-3 sm:gap-3">
+      <div className="grid w-full grid-cols-5 gap-3 sm:gap-3">
         {["24K", "22K", "18K", "14K", "10K"].map((p) => (
           <PurityChip key={p} label={p} active={purity === p} onClick={() => handlePurityChange(p)} />
         ))}
@@ -129,7 +161,7 @@ const GoldCalculatorCard = () => {
           <span className="text-sm sm:text-base font-medium leading-[1.45em] text-center text-white">
             예상 중량을 입력해 보세요.
           </span>
-          <div className="flex items-baseline self-stretch gap-1 px-3 sm:px-4 py-2 rounded-lg bg-white">
+          <div className="flex items-baseline self-stretch gap-1 px-3 py-2 bg-white rounded-lg sm:px-4">
             <span
               className={`flex-1 text-xl sm:text-2xl md:text-3xl font-semibold leading-[1.5em] text-right ${
                 weight === "0" ? "text-[#D4D4D4]" : "text-[#D95204]"
@@ -158,11 +190,11 @@ const GoldCalculatorCard = () => {
           ))}
         </div>
         {/* 예상 가격 출력 */}
-        <div className="flex flex-col self-stretch gap-2 sm:gap-3 mt-auto">
+        <div className="flex flex-col self-stretch gap-2 mt-auto sm:gap-3">
           <span className="text-sm sm:text-base font-medium leading-[1.45em] text-center text-white">
             이 가격으로 팔 수 있어요!
           </span>
-          <div className="flex items-baseline self-stretch gap-1 px-3 sm:px-4 py-2 rounded-lg bg-white">
+          <div className="flex items-baseline self-stretch gap-1 px-3 py-2 bg-white rounded-lg sm:px-4">
             <span className="flex-1 text-xl sm:text-2xl md:text-3xl font-semibold leading-[1.5em] text-right text-[#D95204]">
               {calculatedPrice}
             </span>
@@ -173,7 +205,7 @@ const GoldCalculatorCard = () => {
         </div>
       </CardContainer>
       {/* 하단 설명 */}
-      <div className="flex justify-center items-center self-stretch gap-2">
+      <div className="flex items-center self-stretch justify-center gap-2">
         <InfoIcon />
         <span className="text-sm sm:text-base md:text-xl font-normal leading-[1.5em] text-left text-[#737373]">
           예상 가격으로, 변동이 있을 수 있어요.

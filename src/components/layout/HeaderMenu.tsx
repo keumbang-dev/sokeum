@@ -2,6 +2,13 @@
 
 import { useState, useEffect } from "react";
 
+// 타입 정의
+interface AmplitudeWindow extends Window {
+  amplitude?: {
+    track: (eventName: string, eventProperties?: Record<string, unknown>) => void;
+  };
+}
+
 export interface MenuItemProps {
   href: string;
   label: string;
@@ -14,6 +21,18 @@ const MenuItem = ({ href, label, isActive }: MenuItemProps) => {
     e.preventDefault();
     const targetId = href.replace("#", "");
     const targetElement = document.getElementById(targetId);
+
+    // Amplitude 이벤트 트래킹 - 데스크탑 메뉴 클릭
+    if (typeof window !== "undefined" && (window as AmplitudeWindow).amplitude) {
+      const amplitude = (window as AmplitudeWindow).amplitude;
+      if (amplitude) {
+        amplitude.track("click_what_sokeum_btn", {
+          device_type: "desktop",
+          menu_name: label,
+          menu_link: href,
+        });
+      }
+    }
 
     if (targetElement) {
       window.scrollTo({
@@ -74,7 +93,7 @@ export const DesktopMenu = () => {
   };
 
   return (
-    <nav className="hidden sm:flex items-center space-x-1">
+    <nav className="items-center hidden space-x-1 sm:flex">
       <MenuItem href="#section-gold-price" label="오늘 금 시세" isActive={isActive("#section-gold-price")} />
       <MenuItem href="#section-about" label="소금, 뭐하는 서비스예요?" isActive={isActive("#section-about")} />
     </nav>

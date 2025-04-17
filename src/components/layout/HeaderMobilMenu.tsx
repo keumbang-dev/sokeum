@@ -4,6 +4,13 @@ import { MenuItemProps } from "@/components/layout/HeaderMenu";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
+// 타입 정의
+interface AmplitudeWindow extends Window {
+  amplitude?: {
+    track: (eventName: string, eventProperties?: Record<string, unknown>) => void;
+  };
+}
+
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
@@ -15,6 +22,18 @@ const MobileMenuItem = ({ href, label, isActive, onClick }: MenuItemProps & { on
     e.preventDefault();
     const targetId = href.replace("#", "");
     const targetElement = document.getElementById(targetId);
+
+    // Amplitude 이벤트 트래킹 - 모바일 메뉴 클릭
+    if (typeof window !== "undefined" && (window as AmplitudeWindow).amplitude) {
+      const amplitude = (window as AmplitudeWindow).amplitude;
+      if (amplitude) {
+        amplitude.track("click_what_sokeum_btn", {
+          device_type: "mobile",
+          menu_name: label,
+          menu_link: href,
+        });
+      }
+    }
 
     if (targetElement) {
       window.scrollTo({
@@ -75,7 +94,7 @@ export const MobileMenuContainer = ({ triggerButton }: MobileMenuContainerProps)
     <>
       {/* 기본 트리거 버튼 */}
       {triggerButton || (
-        <button className="sm:hidden flex items-center p-2 text-white" onClick={openMenu} aria-label="메뉴 열기">
+        <button className="flex items-center p-2 text-white sm:hidden" onClick={openMenu} aria-label="메뉴 열기">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 12H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M3 6H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -149,7 +168,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
         }`}
       >
         <button
-          className="absolute top-6 right-6 p-2 text-white/80 hover:text-white focus:outline-none"
+          className="absolute p-2 top-6 right-6 text-white/80 hover:text-white focus:outline-none"
           onClick={onClose}
           aria-label="메뉴 닫기"
         >
@@ -159,7 +178,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
           </svg>
         </button>
 
-        <div className="p-6 pt-24 flex flex-col h-full">
+        <div className="flex flex-col h-full p-6 pt-24">
           <div className="space-y-1">
             <MobileMenuItem
               href="#section-gold-price"
@@ -175,8 +194,8 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
             />
           </div>
 
-          <div className="mt-auto pt-6 border-t border-white/10">
-            <div className="flex items-center gap-4 p-3 bg-black/20 rounded-lg">
+          <div className="pt-6 mt-auto border-t border-white/10">
+            <div className="flex items-center gap-4 p-3 rounded-lg bg-black/20">
               <div className="p-3 rounded-full bg-[#D95204]/20">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -196,10 +215,10 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               </div>
             </div>
 
-            <div className="flex justify-between mt-8 px-1 pb-6">
+            <div className="flex justify-between px-1 pb-6 mt-8">
               <a
                 href="https://map.naver.com/p/entry/address/14136588.0604458,4518868.5821193,%EC%84%9C%EC%9A%B8%20%EC%A2%85%EB%A1%9C%EA%B5%AC%20%EC%A2%85%EB%A1%9C%20122?c=15.00,0,0,0,dh"
-                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                className="flex items-center gap-2 transition-colors text-white/70 hover:text-white"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -225,7 +244,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               </a>
               <a
                 href="https://www.instagram.com/sokeum_official/"
-                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                className="flex items-center gap-2 transition-colors text-white/70 hover:text-white"
                 target="_blank"
                 rel="noopener noreferrer"
               >
