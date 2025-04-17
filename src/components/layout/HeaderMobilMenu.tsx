@@ -188,7 +188,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
             />
             <MobileMenuItem
               href="#section-about"
-              label="소금, 뭐하는 서비스예요?"
+              label="소금, 어떤 서비스인가요?"
               isActive={isActive("#section-about")}
               onClick={onClose}
             />

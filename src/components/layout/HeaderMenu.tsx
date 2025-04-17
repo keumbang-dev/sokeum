@@ -95,7 +95,7 @@ export const DesktopMenu = () => {
   return (
     <nav className="items-center hidden space-x-1 sm:flex">
       <MenuItem href="#section-gold-price" label="오늘 금 시세" isActive={isActive("#section-gold-price")} />
-      <MenuItem href="#section-about" label="소금, 뭐하는 서비스예요?" isActive={isActive("#section-about")} />
+      <MenuItem href="#section-about" label="소금, 어떤 서비스인가요?" isActive={isActive("#section-about")} />
     </nav>
   );
 };
