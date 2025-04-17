@@ -4,6 +4,13 @@ import { MenuItemProps } from "@/components/layout/HeaderMenu";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
+// 타입 정의
+interface AmplitudeWindow extends Window {
+  amplitude?: {
+    track: (eventName: string, eventProperties?: Record<string, unknown>) => void;
+  };
+}
+
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
@@ -15,6 +22,18 @@ const MobileMenuItem = ({ href, label, isActive, onClick }: MenuItemProps & { on
     e.preventDefault();
     const targetId = href.replace("#", "");
     const targetElement = document.getElementById(targetId);
+
+    // Amplitude 이벤트 트래킹 - 모바일 메뉴 클릭
+    if (typeof window !== "undefined" && (window as AmplitudeWindow).amplitude) {
+      const amplitude = (window as AmplitudeWindow).amplitude;
+      if (amplitude) {
+        amplitude.track("click_what_sokeum_btn", {
+          device_type: "mobile",
+          menu_name: label,
+          menu_link: href,
+        });
+      }
+    }
 
     if (targetElement) {
       window.scrollTo({
