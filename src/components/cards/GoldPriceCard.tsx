@@ -3,6 +3,7 @@ import PriceChangeTag from "../ui/PriceChangeTag";
 import CardContainer from "../ui/CardContainer";
 import SokeumLogo from "../ui/SokeumLogo";
 import { ReactNode } from "react";
+import dayjs from "dayjs";
 
 // 거래소 표시 컴포넌트
 interface TraderLabelProps {
@@ -14,7 +15,7 @@ interface TraderLabelProps {
 const TraderLabel = ({ color, children, name }: TraderLabelProps) => {
   return (
     <div className="flex items-center gap-2">
-      <div className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full" style={{ backgroundColor: color }} />
+      <div className="w-3 h-3 rounded-full sm:w-4 sm:h-4 md:w-5 md:h-5" style={{ backgroundColor: color }} />
       {children || (
         <>
           <span className="text-sm sm:text-lg md:text-xl font-medium leading-[1.5em] text-left text-white">{name}</span>
@@ -38,7 +39,7 @@ const PriceDifference = ({ difference, better }: { difference: number; better: b
           strokeWidth="1"
         />
       </svg>
-      <span className="text-xs sm:text-sm font-medium">
+      <span className="text-xs font-medium sm:text-sm">
         {better ? `${difference.toLocaleString()}원 더 드려요` : `${difference.toLocaleString()}원 더 저렴해요`}
       </span>
     </div>
@@ -69,7 +70,7 @@ const PriceInfo = ({
     <>
       {/* 모바일 뷰 - 세로 배열 */}
       <div className="flex flex-col w-full gap-4 sm:hidden">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-white">내가 팔 때</span>
           <div className="flex flex-col items-end">
             <div className="flex items-baseline gap-1">
@@ -77,12 +78,12 @@ const PriceInfo = ({
               <span className="text-base font-normal text-white">원</span>
             </div>
             <div className="flex flex-col items-end">
-              <PriceChangeTag value={`${priceChange.toLocaleString()}`} percentage={`${percentChange}%`} />
+              {/* <PriceChangeTag value={`${priceChange.toLocaleString()}`} percentage={`${percentChange}%`} /> */}
               {isSokeum && sellDifference > 0 && <PriceDifference difference={sellDifference} better={true} />}
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-white">내가 살 때</span>
           <div className="flex flex-col items-end">
             <div className="flex items-baseline gap-1">
@@ -90,7 +91,7 @@ const PriceInfo = ({
               <span className="text-base font-normal text-white">원</span>
             </div>
             <div className="flex flex-col items-end">
-              <PriceChangeTag value={`${priceChange.toLocaleString()}`} percentage={`${percentChange}%`} />
+              {/* <PriceChangeTag value={`${priceChange.toLocaleString()}`} percentage={`${percentChange}%`} /> */}
               {isSokeum && buyDifference > 0 && <PriceDifference difference={buyDifference} better={false} />}
             </div>
           </div>
@@ -98,9 +99,9 @@ const PriceInfo = ({
       </div>
 
       {/* 태블릿 이상 뷰 - 가로 배열 */}
-      <div className="hidden sm:grid sm:grid-cols-2 w-full">
+      <div className="hidden w-full sm:grid sm:grid-cols-2">
         {/* 내가 팔 때 */}
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center justify-center">
           <div className="flex justify-center items-baseline gap-[3px]">
             <span
               className={`${
@@ -114,13 +115,13 @@ const PriceInfo = ({
             </span>
           </div>
           <div className="flex flex-col items-center">
-            <PriceChangeTag value={`${priceChange.toLocaleString()}`} percentage={`${percentChange}%`} />
-            {isSokeum && sellDifference > 0 && <PriceDifference difference={sellDifference} better={true} />}
+            {/* <PriceChangeTag value={`${priceChange.toLocaleString()}`} percentage={`${percentChange}%`} /> */}
+            {<PriceDifference difference={sellDifference} better={true} />}
           </div>
         </div>
 
         {/* 내가 살 때 */}
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center justify-center">
           <div className="flex justify-center items-baseline gap-[3px]">
             <span
               className={`${
@@ -134,7 +135,7 @@ const PriceInfo = ({
             </span>
           </div>
           <div className="flex flex-col items-center">
-            <PriceChangeTag value={`${priceChange.toLocaleString()}`} percentage={`${percentChange}%`} />
+            {/* <PriceChangeTag value={`${priceChange.toLocaleString()}`} percentage={`${percentChange}%`} /> */}
             {isSokeum && buyDifference > 0 && <PriceDifference difference={buyDifference} better={false} />}
           </div>
         </div>
@@ -146,16 +147,16 @@ const PriceInfo = ({
 // 가격 데이터를 외부에서 사용할 수 있도록 export
 export const goldPriceData = {
   // 내가 팔 때 가격들
-  sokeumSellPrice: 541130, // sokeum 내가 팔 때 가격
-  koreaGoldSellPrice: 521130, // 한국금거래소 내가 팔 때 가격
-  sGoldSellPrice: 521130, // S 금거래소 내가 팔 때 가격
-  jongnoWholesaleSellPrice: 521130, // 종로 도매 평균가 내가 팔 때 가격
+  sokeumSellPrice: 568390, // sokeum 내가 팔 때 가격
+  koreaGoldSellPrice: 549000, // 한국금거래소 내가 팔 때 가격
+  sGoldSellPrice: 500000, // S 금거래소 내가 팔 때 가격
+  jongnoWholesaleSellPrice: 551000, // 종로 도매 평균가 내가 팔 때 가격
 
   // 내가 살 때 가격들
-  sokeumBuyPrice: 552401, // sokeum 내가 살 때 가격
-  koreaGoldBuyPrice: 622401, // 한국금거래소 내가 살 때 가격
-  sGoldBuyPrice: 622401, // S 금거래소 내가 살 때 가격
-  jongnoWholesaleBuyPrice: 622401, // 종로 도매 평균가 내가 살 때 가격
+  sokeumBuyPrice: 571730, // sokeum 내가 살 때 가격
+  koreaGoldBuyPrice: 665000, // 한국금거래소 내가 살 때 가격
+  sGoldBuyPrice: 654500, // S 금거래소 내가 살 때 가격
+  jongnoWholesaleBuyPrice: 613800, // 종로 도매 평균가 내가 살 때 가격
 
   // 가격 변동 정보
   priceChange: 1000, // 가격 변동 (원)
@@ -188,10 +189,10 @@ const GoldPriceCard = () => {
 
   return (
     <div className="flex flex-col gap-4 sm:gap-6 w-full lg:min-w-[711px] lg:max-w-[711px]">
-      <CardContainer className="flex flex-col items-end self-stretch gap-6 sm:gap-10 md:gap-16 p-6 sm:p-10 md:p-20">
-        <div className="flex flex-col gap-6 sm:gap-8 w-full">
+      <CardContainer className="flex flex-col items-end self-stretch gap-6 p-6 sm:gap-10 md:gap-16 sm:p-10 md:p-20">
+        <div className="flex flex-col w-full gap-6 sm:gap-8">
           {/* 헤더 행 - 모바일에서는 숨김 */}
-          <div className="hidden sm:grid sm:grid-cols-3 w-full">
+          <div className="hidden w-full sm:grid sm:grid-cols-3">
             <div className="col-span-1"></div>
             <div className="text-lg sm:text-xl md:text-2xl font-medium leading-[1.5em] text-center text-white">
               내가 팔 때
@@ -263,10 +264,10 @@ const GoldPriceCard = () => {
           </div>
         </div>
       </CardContainer>
-      <div className="flex justify-center items-center self-stretch gap-2">
+      <div className="flex items-center self-stretch justify-center gap-2">
         <InfoIcon />
         <span className="text-sm sm:text-base md:text-xl font-normal leading-[1.5em] text-left text-[#737373]">
-          2025.01.15 • 1돈 24K 기준 • 전날 18시 마감 기준 등락 표시
+          {dayjs().format("YYYY.MM.DD HH:mm")} 실시간 업데이트 • 1돈 24K 기준
         </span>
       </div>
     </div>
