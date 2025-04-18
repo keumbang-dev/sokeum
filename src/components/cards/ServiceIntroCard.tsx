@@ -10,7 +10,7 @@ const ServiceIntroCard = () => {
           <br className="lg:hidden" />
           믿고 거래하는
           <br />
-          <span className="text-[#D95204]">금 도매 1위 앱 </span>
+          <span className="text-[#D95204]">금 도소매 1위 앱 </span>
           &apos;업스토어&apos;
         </span>
         <span className="text-base sm:text-lg md:text-lg font-normal leading-[1.5em] text-center md:text-left text-white">
