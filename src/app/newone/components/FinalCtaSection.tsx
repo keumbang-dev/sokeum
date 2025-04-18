@@ -10,8 +10,6 @@ export const FinalCtaSection = () => (
       <span className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5em] text-center text-white"></span>
 
       <h2 className="flex flex-col items-center text-4xl md:text-5xl font-bold text-white mb-6">
-        소중한 나의 금 <br />
-        <SokeumLogo size="large" />
         <span className="mb-2">이제, 당신의 금에게도 </span>
         <div className="flex flex-row items-center">
           <span className="text-amber-400">일할 기회</span>를 주세요!
@@ -43,6 +41,10 @@ export const FinalCtaSection = () => (
         >
           <UserPlus className="w-5 h-5" /> 웹에서 가입하기
         </motion.button>
+      </div>
+      <div className="mt-50 flex flex-col items-center justify-center">
+        <SokeumLogo size="large" />
+        <span className="text-2xl font-extralight text-[#D95204]">소중한 나의 금</span>
       </div>
     </div>
   </section>
