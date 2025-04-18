@@ -1,13 +1,21 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Package, Download, UserPlus } from "lucide-react";
+import SokeumLogo from "@/components/ui/SokeumLogo";
 
 export const FinalCtaSection = () => (
   <section className="py-24 px-4 text-center bg-[#110703]">
     <div className="container mx-auto">
-      <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-        이제, 당신의 금에게도 <br />
-        <span className="text-amber-400">일할 기회</span>를 주세요!
+      {/*<SokeumLogo size="large" />*/}
+      <span className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5em] text-center text-white"></span>
+
+      <h2 className="flex flex-col items-center text-4xl md:text-5xl font-bold text-white mb-6">
+        소중한 나의 금 <br />
+        <SokeumLogo size="large" />
+        <span className="mb-2">이제, 당신의 금에게도 </span>
+        <div className="flex flex-row items-center">
+          <span className="text-amber-400">일할 기회</span>를 주세요!
+        </div>
       </h2>
       <p className="text-lg text-gray-300 mb-10 max-w-xl mx-auto">
         안전한 보관은 기본, 매일 쌓이는 보관 리워드와 최고가 현금화까지.

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import {
   ChevronDown,
@@ -28,6 +28,9 @@ import { TestimonialsSection } from "@/app/newone/components/TestimonialsSection
 import { FaqSection } from "@/app/newone/components/FaqSection";
 import { FinalCtaSection } from "@/app/newone/components/FinalCtaSection";
 import { Footer } from "@/app/newone/components/Footer";
+import ServiceIntroCard from "@/components/cards/ServiceIntroCard";
+import SokeumLogo from "@/components/ui/SokeumLogo";
+import ServiceInfo from "@/app/newone/components/ServiceInfo";
 
 // --- Component Imports (Placeholders for actual components if separated) ---
 // import Header from '@/components/layout/Header'; // Assuming Header is adapted for this page or a new one is made
@@ -35,6 +38,8 @@ import { Footer } from "@/app/newone/components/Footer";
 
 // --- Main Page Component ---
 export default function NewLandingPage() {
+  const [showTrustInfo, setShowTrustInfo] = useState(false);
+
   // SEO Metadata (Example - Needs refinement based on actual deployment)
   // Note: Metadata should ideally be defined outside the client component
   // For this example structure, we'll assume it's handled at a higher level or defined statically
@@ -78,6 +83,7 @@ export default function NewLandingPage() {
         <RewardSimulatorSection />
         <TestimonialsSection />
         <FaqSection />
+        <ServiceInfo />
         <FinalCtaSection />
       </main>
       <Footer /> {/* Use adapted/new Footer */}

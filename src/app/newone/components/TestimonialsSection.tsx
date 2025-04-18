@@ -5,7 +5,7 @@ import { Quote } from "lucide-react";
 export const TestimonialsSection = () => (
   <section className="py-20 px-4 bg-[#110703]">
     <div className="container mx-auto text-center">
-      <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-12">
         소금, <span className="text-amber-400">먼저 경험한 분들의 이야기</span>
       </h2>
       {/* Placeholder for slider - Currently a grid */}

@@ -1,3 +1,4 @@
+import SokeumLogo from "@/components/ui/SokeumLogo";
 import React from "react";
 
 // Placeholder for Header Component (Adapt or Create New)
@@ -7,7 +8,7 @@ export const Header = () => {
     <header className="sticky top-0 z-50 w-full bg-[#110703]/90 backdrop-blur-md border-b border-white/10">
       <div className="container mx-auto flex items-center justify-between h-20 px-4">
         {/* Placeholder Logo */}
-        <span className="text-2xl font-bold text-amber-400">소금</span>
+        <SokeumLogo size="large" />
         <nav className="hidden md:flex items-center space-x-6">
           <a href="#section-benefits" className="text-white hover:text-amber-400 transition-colors">
             소금이란?
