@@ -32,6 +32,7 @@ import ServiceIntroCard from "@/components/cards/ServiceIntroCard";
 import SokeumLogo from "@/components/ui/SokeumLogo";
 import ServiceInfo from "@/app/newone/components/ServiceInfo";
 import ScrollGuide from "@/app/newone/components/ScrollGuide";
+import { BenefitsSectionOriginal } from "@/app/newone/components/BenefitsSectionOriginal";
 
 // --- Component Imports (Placeholders for actual components if separated) ---
 // import Header from '@/components/layout/Header'; // Assuming Header is adapted for this page or a new one is made
@@ -90,11 +91,9 @@ export default function NewLandingPage() {
         <IntroScrollAnimation />
       </div>
       <main>
-        {/*<div id="benefits">
-          <BenefitsSection />
-        </div>*/}
         <div id="hero">
           <HeroSection />
+          <BenefitsSectionOriginal />
           <HowItWorksSection />
           <RewardSimulatorSection />
           <TestimonialsSection />
