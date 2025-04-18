@@ -11,7 +11,7 @@ export const HeroSection = () => (
     <motion.div initial="hidden" animate="visible" variants={fadeIn} className="max-w-4xl">
       {/* Placeholder for 3D Gold Bar Image - Replace with <Image> or animation */}
       <div className="mb-8 text-6xl text-amber-400">🏆</div>
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
+      <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
         장롱금을 <span className="text-amber-400">&apos;금고&apos;</span>에 맡기면
         <br />
         <span className="bg-gradient-to-r from-amber-300 to-amber-500 text-transparent bg-clip-text">
@@ -19,7 +19,7 @@ export const HeroSection = () => (
         </span>{" "}
         + 최고가 매입 보장!
       </h1>
-      <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+      <p className="text-base md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
         집에 잠자고 있는 금, 이제 소금 디지털 금고에서 안전하게 보관하고 매일 쌓이는 Gold Bonus 혜택까지 누리세요.
       </p>
       <motion.button
