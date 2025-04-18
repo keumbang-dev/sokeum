@@ -105,7 +105,7 @@ export const IntroScrollAnimation = () => {
 
           {/* 말풍선 1 */}
           <SpeechBubble
-            text="최근에 헤어졌는데.."
+            text="헤어졌는데 커플링 어쩌지.."
             style={{ opacity: bubble1Opacity, scale: bubble1Scale, y: bubble1Y, x: "-60%", top: "35%" }}
           />
 

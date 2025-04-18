@@ -6,8 +6,8 @@ export const Footer = () => {
   return (
     <footer className="py-12 px-4 bg-[#0a0502] text-gray-500 text-sm">
       <div className="container mx-auto text-center">
-        <p className="mb-4">(주)소금컴퍼니 | 대표: 김소금 | 사업자등록번호: 123-45-67890</p>
-        <p className="mb-4">서울특별시 종로구 돈화문로 00, 5층 | 통신판매업신고: 제2024-서울종로-0000호</p>
+        <p className="mb-4">금방(주) | 대표자: 임진리 | 사업자등록번호: 689-87-01235</p>
+        <p className="mb-4">서울특별시 종로구 종로 122 (종로3가, 골드센터) | 통신판매업신고: 제2019-서울종로-0885호</p>
         <div className="flex justify-center items-center gap-4 mb-4">
           <a href="tel:02-2272-9897" className="inline-flex items-center gap-1 hover:text-gray-300">
             <Phone size={14} /> 02-2272-9897
