@@ -7,7 +7,7 @@ function ServiceInfo() {
         소중한 나의 금, 믿고 맡길 수 있을까?
       </span>
       <ServiceIntroCard />
-      <div className="mt-8 text-center text-gray-300 space-y-3 px-4">
+      <div className="text-center text-gray-300 space-y-3 px-4">
         <p className="text-base md:text-lg">
           <strong className="text-amber-400">KRX(한국거래소) 인증 업체:</strong> 금 현물 시장의 엄격한 기준을 통과한
           믿을 수 있는 서비스입니다.
