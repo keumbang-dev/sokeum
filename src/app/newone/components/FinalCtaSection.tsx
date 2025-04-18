@@ -17,7 +17,7 @@ export const FinalCtaSection = () => (
           <span className="text-amber-400">일할 기회</span>를 주세요!
         </div>
       </h2>
-      <p className="text-lg text-gray-300 mb-10 max-w-xl mx-auto">
+      <p className="text-sm md:text-lg text-gray-300 mb-10 max-w-xl mx-auto">
         안전한 보관은 기본, 매일 쌓이는 보관 리워드와 최고가 현금화까지.
         <br /> 지금 바로 소금을 시작해보세요.
       </p>
