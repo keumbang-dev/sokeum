@@ -4,7 +4,8 @@ function ServiceInfo() {
   return (
     <div id="section-about" className="flex flex-col items-center w-full gap-8 sm:gap-8 md:gap-8 py-16 md:py-24 px-4">
       <span className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.5em] text-center text-white">
-        소중한 나의 금, 믿고 맡길 수 있을까?
+        소중한 나의 금, <br className="sm:hidden" />
+        믿고 맡길 수 있을까?
       </span>
       <ServiceIntroCard />
       <div className="text-center text-gray-300 space-y-3 px-4">
