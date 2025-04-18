@@ -108,57 +108,56 @@ export const BenefitsSectionOriginal = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="grid md:grid-cols-3 gap-8"
+        className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto"
       >
         {[
           {
-            icon: Lock,
-            title: "안전한 디지털 금고",
-            description: "보험 가입된 금고 보관, 언제든 실시간 잔고 확인. 분실·도난 걱정 끝!",
-            animationVariants: lockVariants,
-          },
-          {
             icon: TrendingUp,
             title: "매일 쌓이는 보관 리워드",
-            description: "보유량에 따라 매일 Gold Bonus가 자동 적립! 금테크의 새로운 기준.",
+            description: "보유량에 따라 매일 리워드가 자동 적립!\n금테크의 새로운 기준.",
+            hightLight: "보관 중량의 최소 연 4% 리워드 보장",
             animationVariants: trendingUpVariants,
           },
           {
             icon: HandCoins,
             title: "국내 최고가 현금 매각",
-            description: "원할 때 언제든 클릭 한 번으로 대한민국 최고가 매입 보장! (24시간 출금)",
+            description: "원할 때 언제든 클릭 한 번으로\n대한민국 최고가 매입 보장!",
+            hightLight: "최고가 매각이 아닐 시 차액의 최대 10배 보상",
             animationVariants: handVariants,
             isHandCoin: true,
           },
-        ].map((item, index) => (
-          <motion.div
-            key={index}
-            variants={fadeIn}
-            className="bg-[#1a0e07] p-8 rounded-lg border border-white/10 flex flex-col items-center text-center h-full"
-          >
-            <div className="relative mb-4 h-16 w-12 flex justify-center items-center">
-              <motion.div variants={item.animationVariants || iconVariants}>
-                <item.icon className="w-12 h-12 text-amber-400" />
-              </motion.div>
-              {item.isHandCoin &&
-                [0, 1, 2].map((i) => (
-                  <motion.div
-                    key={i}
-                    custom={i}
-                    variants={coinVariants}
-                    className="absolute w-2 h-2 bg-amber-300 rounded-full"
-                    style={{
-                      top: `10%`,
-                      left: `${40 + i * 10}%`,
-                      translateX: "-50%",
-                    }}
-                  />
-                ))}
-            </div>
-            <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
-            <p className="text-gray-400">{item.description}</p>
-          </motion.div>
-        ))}
+        ]
+          .filter((item) => item.icon !== Lock)
+          .map((item, index) => (
+            <motion.div
+              key={index}
+              variants={fadeIn}
+              className="bg-[#1a0e07] p-8 rounded-lg border border-white/10 flex flex-col items-center text-center h-full"
+            >
+              <div className="relative mb-6 h-16 w-12 flex justify-center items-center">
+                <motion.div variants={item.animationVariants || iconVariants}>
+                  <item.icon className="w-12 h-12 text-amber-400" />
+                </motion.div>
+                {item.isHandCoin &&
+                  [0, 1, 2].map((i) => (
+                    <motion.div
+                      key={i}
+                      custom={i}
+                      variants={coinVariants}
+                      className="absolute w-2 h-2 bg-amber-300 rounded-full"
+                      style={{
+                        top: `10%`,
+                        left: `${40 + i * 10}%`,
+                        translateX: "-50%",
+                      }}
+                    />
+                  ))}
+              </div>
+              <h3 className="text-2xl font-semibold text-white mb-3">{item.title}</h3>
+              <p className="text-lg text-gray-300 whitespace-pre-line">{item.description}</p>
+              {item.hightLight && <p className="text-lg text-amber-400 mt-2 font-semibold">{item.hightLight}</p>}
+            </motion.div>
+          ))}
       </motion.div>
     </div>
   </section>
