@@ -44,11 +44,13 @@ const MenuItem = ({ href, label, isActive }: MenuItemProps) => {
 
   return (
     <a href={href} onClick={handleClick} className="relative inline-block px-4 py-2 text-[15px]">
-      <span className={`transition-colors duration-300 ${isActive ? "text-[#D95204]" : "text-white"}`}>{label}</span>
-      {/* 언더라인 - 중앙에서 확장되는 애니메이션 */}
+      <span className={`transition-colors duration-300 ${isActive ? "text-[#D95204] font-semibold" : "text-white"}`}>
+        {label}
+      </span>
+      {/* 언더라인 - 중앙에서 확장되는 애니메이션 (개선) */}
       <span
-        className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-[2px] bg-[#D95204] transition-all duration-300 ${
-          isActive ? "w-[70%]" : "w-0"
+        className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-[2px] bg-[#D95204] transition-transform duration-500 ease-out origin-center ${
+          isActive ? "scale-x-100 w-[70%]" : "scale-x-0 w-[70%]"
         }`}
       />
     </a>
