@@ -31,14 +31,24 @@ import { Footer } from "@/app/newone/components/Footer";
 import ServiceIntroCard from "@/components/cards/ServiceIntroCard";
 import SokeumLogo from "@/components/ui/SokeumLogo";
 import ServiceInfo from "@/app/newone/components/ServiceInfo";
+import ScrollGuide from "@/app/newone/components/ScrollGuide";
 
 // --- Component Imports (Placeholders for actual components if separated) ---
 // import Header from '@/components/layout/Header'; // Assuming Header is adapted for this page or a new one is made
 // import Footer from '@/components/layout/Footer'; // Assuming Footer is adapted
 
+// Define sections for the guide
+const sections = [
+  { id: "intro", name: "인트로" },
+  { id: "benefits", name: "핵심 혜택" },
+  { id: "hero", name: "금고 보관" },
+  { id: "faq", name: "자주 묻는 질문" },
+  { id: "about", name: "서비스 소개" },
+];
+
 // --- Main Page Component ---
 export default function NewLandingPage() {
-  const [showTrustInfo, setShowTrustInfo] = useState(false);
+  // Removed useState for showTrustInfo as ServiceInfo component handles it now
 
   // SEO Metadata (Example - Needs refinement based on actual deployment)
   // Note: Metadata should ideally be defined outside the client component
@@ -72,19 +82,30 @@ export default function NewLandingPage() {
   */
 
   return (
-    <div className="bg-[#110703] text-white">
+    <div className="bg-[#110703] text-white relative">
       {/* <HomePageTracker /> */} {/* Include if needed */}
       <Header /> {/* Use adapted/new Header */}
-      <IntroScrollAnimation />
+      <ScrollGuide sections={sections} />
+      <div id="intro">
+        <IntroScrollAnimation />
+      </div>
       <main>
-        <BenefitsSection />
-        <HeroSection />
-        <HowItWorksSection />
-        <RewardSimulatorSection />
-        <TestimonialsSection />
-        <FaqSection />
-        <ServiceInfo />
-        <FinalCtaSection />
+        <div id="benefits">
+          <BenefitsSection />
+        </div>
+        <div id="hero">
+          <HeroSection />
+          <HowItWorksSection />
+          <RewardSimulatorSection />
+          <TestimonialsSection />
+        </div>
+        <div id="faq">
+          <FaqSection />
+        </div>
+        <div id="about">
+          <ServiceInfo />
+          <FinalCtaSection />
+        </div>
       </main>
       <Footer /> {/* Use adapted/new Footer */}
     </div>

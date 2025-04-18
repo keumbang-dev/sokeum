@@ -2,12 +2,13 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, MotionStyle } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 
 // 말풍선 컴포넌트 (스타일링은 Tailwind 사용)
 const SpeechBubble = ({ text, style }: { text: string; style: MotionStyle }) => (
   <motion.div
     style={style}
-    className="absolute bg-white text-gray-800 p-4 md:p-8 rounded-lg shadow-md max-w-[200px] md:max-w-xs text-center text-base md:text-xl"
+    className="absolute bg-white text-gray-800 p-3 md:p-8 rounded-lg shadow-md max-w-[160px] md:max-w-xs text-center text-sm md:text-xl"
   >
     {text}
     {/* 꼬리 부분 (간단한 삼각형) */}
@@ -22,24 +23,37 @@ export const IntroScrollAnimation = () => {
     offset: ["start start", "end end"],
   });
 
-  // --- 애니메이션 단계별 설정 (0 ~ 1) ---
-  const characterXRange = [-1, 0.2, 0.4, 0.6, 0.7, 1]; // 캐릭터 X 위치 변경 시점
-  const bubble1Range = [0.05, 0.2]; // 말풍선 1 표시 구간
-  const bubble2Range = [0.25, 0.4]; // 말풍선 2 표시 구간
-  const bubble3Range = [0.45, 0.6]; // 말풍선 3 표시 구간
-  const popRange = [0.6, 0.65]; // 말풍선 터지는 구간
-  const finalRevealRange = [0.7, 0.9]; // 최종 메시지 표시 구간
-  const characterFadeOutRange = [0.8, 1]; // 캐릭터 사라지는 구간
+  // --- Initial Prompt Animation --- (Visible only at the very top)
+  const initialPromptOpacity = useTransform(scrollYProgress, [0, 0.02], [1, 0]);
+  const initialArrowY = useTransform(scrollYProgress, [0, 0.02], [0, -20]); // Move arrow up slightly on scroll
 
-  // 캐릭터 상태 (🤔 -> ✨)
-  const thinkingOpacity = useTransform(scrollYProgress, [0, 0.6, 0.65], [1, 1, 0]);
+  // --- Adjust existing animation ranges to start slightly later ---
+  const animationStartOffset = 0.05; // Start animations after a small scroll
+
+  const bubble1Range = [0.05, 0.2].map((p) => p * (1 - animationStartOffset) + animationStartOffset);
+  const bubble2Range = [0.25, 0.4].map((p) => p * (1 - animationStartOffset) + animationStartOffset);
+  const bubble3Range = [0.45, 0.6].map((p) => p * (1 - animationStartOffset) + animationStartOffset);
+  const popRange = [0.6, 0.65].map((p) => p * (1 - animationStartOffset) + animationStartOffset);
+  const finalRevealRange = [0.7, 0.9].map((p) => p * (1 - animationStartOffset) + animationStartOffset);
+  const characterFadeOutRange = [0.8, 1].map((p) => p * (1 - animationStartOffset) + animationStartOffset);
+
+  // --- Existing Animations (Outputs based on adjusted ranges) ---
+  // Ensure these start fading in AFTER the initial prompt fades out
+  const mainContentOpacity = useTransform(
+    scrollYProgress,
+    [0, animationStartOffset * 0.8, animationStartOffset],
+    [0, 0, 1]
+  );
+
+  // Character state (Fade in after prompt fades out)
+  const thinkingOpacity = useTransform(scrollYProgress, [animationStartOffset, popRange[0], popRange[1]], [1, 1, 0]);
   const ahaOpacity = useTransform(
     scrollYProgress,
-    [0.6, 0.65, characterFadeOutRange[0], characterFadeOutRange[1]],
+    [popRange[0], popRange[1], characterFadeOutRange[0], characterFadeOutRange[1]],
     [0, 1, 1, 0]
   );
 
-  // 말풍선 1 애니메이션
+  // Bubbles (Fade in after prompt fades out)
   const bubble1Opacity = useTransform(
     scrollYProgress,
     [bubble1Range[0] - 0.02, bubble1Range[0], bubble1Range[1], popRange[0]],
@@ -50,7 +64,7 @@ export const IntroScrollAnimation = () => {
     [bubble1Range[0] - 0.02, bubble1Range[0], popRange[0], popRange[1]],
     [0.5, 1, 1, 0]
   );
-  const bubble1Y = useTransform(scrollYProgress, [bubble1Range[0], bubble1Range[1]], ["-10%", "-15%"]); // 약간 위로 이동
+  const bubble1Y = useTransform(scrollYProgress, [bubble1Range[0], bubble1Range[1]], ["-10%", "-15%"]);
 
   // 말풍선 2 애니메이션
   const bubble2Opacity = useTransform(
@@ -78,7 +92,7 @@ export const IntroScrollAnimation = () => {
   );
   const bubble3Y = useTransform(scrollYProgress, [bubble3Range[0], bubble3Range[1]], ["-10%", "-15%"]);
 
-  // 최종 메시지 애니메이션
+  // Final message (Fade in based on adjusted range)
   const finalOpacity = useTransform(
     scrollYProgress,
     [finalRevealRange[0] - 0.05, finalRevealRange[0], finalRevealRange[1]],
@@ -86,49 +100,64 @@ export const IntroScrollAnimation = () => {
   );
   const finalScale = useTransform(scrollYProgress, [finalRevealRange[0] - 0.05, finalRevealRange[0]], [0.8, 1]);
 
-  // 배경 Opacity (기존 유지)
+  // Background Opacity (No change needed here usually)
   const backgroundOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0]);
 
   return (
     <div ref={targetRef} className="relative h-[900vh] w-full">
-      {" "}
-      {/* 높이 조절 */}
       <motion.div
         style={{ opacity: backgroundOpacity }}
-        className="sticky top-0 h-screen w-full overflow-hidden bg-[#110703] flex items-center justify-center"
+        className="sticky top-0 h-screen w-full overflow-hidden bg-[#110703] flex flex-col items-center justify-center"
       >
-        <div className="relative w-full h-full flex items-center justify-center">
-          {/* 캐릭터 */}
-          <motion.div className="absolute bottom-[35%] text-6xl md:text-8xl z-10">
-            <motion.span style={{ opacity: thinkingOpacity, position: "absolute", top: 0, left: 0 }}>🤔</motion.span>
+        {/* --- Initial Prompt Elements --- */}
+        <motion.div
+          style={{ opacity: initialPromptOpacity }}
+          className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none"
+        >
+          <h2 className="text-2xl md:text-6xl font-bold text-amber-400 mb-4">혹시 집에 금, 그대로 두고 계신가요?</h2>
+          <p className="text-base md:text-2xl text-white mb-8">아래로 스크롤해서 똑똑한 활용법을 만나보세요!</p>
+          <motion.div
+            style={{ y: initialArrowY }}
+            animate={{ y: [0, 10, 0] }} // Arrow bounce animation
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ArrowDown className="w-8 h-8 text-white" />
+          </motion.div>
+        </motion.div>
+
+        {/* --- Main Animation Content (Fades in after scroll starts) --- */}
+        <motion.div
+          style={{ opacity: mainContentOpacity }} // Control overall opacity of the animation elements
+          className="relative w-full h-full flex items-center justify-center"
+        >
+          {/* Character */}
+          <motion.div className="absolute text-center bottom-[35%] text-6xl md:text-8xl z-10">
+            {/* Apply thinkingOpacity to the span directly */}
+            <motion.span style={{ opacity: thinkingOpacity }}>🤔</motion.span>
           </motion.div>
 
-          {/* 말풍선 1 */}
+          {/* Bubbles */}
           <SpeechBubble
             text="헤어졌는데 커플링 어쩌지.."
-            style={{ opacity: bubble1Opacity, scale: bubble1Scale, y: bubble1Y, x: "-60%", top: "35%" }}
+            style={{ opacity: bubble1Opacity, scale: bubble1Scale, y: bubble1Y, x: "-50%", top: "35%" }}
           />
-
-          {/* 말풍선 2 */}
           <SpeechBubble
             text="실물 금 투자를 해보고 싶은데.."
             style={{ opacity: bubble2Opacity, scale: bubble2Scale, y: bubble2Y, x: "0%", top: "30%" }}
           />
-
-          {/* 말풍선 3 */}
           <SpeechBubble
             text="집에 안 쓰는 귀금속이 있는데.."
-            style={{ opacity: bubble3Opacity, scale: bubble3Scale, y: bubble3Y, x: "60%", top: "35%" }}
+            style={{ opacity: bubble3Opacity, scale: bubble3Scale, y: bubble3Y, x: "50%", top: "35%" }}
           />
 
-          {/* 최종 메시지 */}
-          <motion.div style={{ opacity: finalOpacity, scale: finalScale }} className="absolute text-center px-8">
+          {/* Final Message */}
+          <motion.div style={{ opacity: finalOpacity, scale: finalScale }} className="absolute text-center px-8 z-10">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500 text-transparent bg-clip-text">
               소중한 당신의 금,
               <br /> 소금에 맡기세요
             </h1>
           </motion.div>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
