@@ -40,7 +40,7 @@ import ScrollGuide from "@/app/newone/components/ScrollGuide";
 // Define sections for the guide
 const sections = [
   { id: "intro", name: "인트로" },
-  { id: "benefits", name: "핵심 혜택" },
+  //{ id: "benefits", name: "핵심 혜택" },
   { id: "hero", name: "금고 보관" },
   { id: "faq", name: "자주 묻는 질문" },
   { id: "about", name: "서비스 소개" },
@@ -90,9 +90,9 @@ export default function NewLandingPage() {
         <IntroScrollAnimation />
       </div>
       <main>
-        <div id="benefits">
+        {/*<div id="benefits">
           <BenefitsSection />
-        </div>
+        </div>*/}
         <div id="hero">
           <HeroSection />
           <HowItWorksSection />

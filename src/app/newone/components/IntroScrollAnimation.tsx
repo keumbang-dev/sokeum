@@ -104,7 +104,7 @@ export const IntroScrollAnimation = () => {
   const backgroundOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0]);
 
   return (
-    <div ref={targetRef} className="relative h-[900vh] w-full">
+    <div ref={targetRef} className="relative h-[900vh] sm:h-[600vh] w-full">
       <motion.div
         style={{ opacity: backgroundOpacity }}
         className="sticky top-0 h-screen w-full overflow-hidden bg-[#110703] flex flex-col items-center justify-center"

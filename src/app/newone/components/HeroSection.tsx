@@ -7,8 +7,8 @@ const fadeIn = {
 };
 
 export const HeroSection = () => (
-  <section className="w-full min-h-[70vh] flex items-center justify-center text-center bg-gradient-to-b from-[#1a0e07] to-[#110703] py-20 px-4">
-    <motion.div initial="hidden" animate="visible" variants={fadeIn} className="max-w-4xl">
+  <section className=" w-full min-h-[70vh] flex items-center justify-center text-center bg-gradient-to-b from-[#1a0e07] to-[#110703] py-20 px-4">
+    <motion.div initial="hidden" animate="visible" variants={fadeIn} className="max-w-5xl">
       {/* Placeholder for 3D Gold Bar Image - Replace with <Image> or animation */}
       <div className="mb-8 text-6xl text-amber-400">🏆</div>
       <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">

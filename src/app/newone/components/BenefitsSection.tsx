@@ -112,7 +112,7 @@ export const BenefitsSection = () => {
   };
 
   return (
-    <div ref={targetRef} className="relative h-[800vh] w-full bg-[#0d0604]">
+    <div ref={targetRef} className="relative h-[800vh] sm:h-[500vh] w-full bg-[#0d0604]">
       {/* Sticky 컨테이너: 실제 보이는 화면 영역 */}
       <motion.div
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
