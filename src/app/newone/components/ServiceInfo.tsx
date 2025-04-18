@@ -13,7 +13,7 @@ function ServiceInfo() {
           믿을 수 있는 서비스입니다.
         </p>
         <p className="text-base md:text-lg">
-          <strong className="text-amber-400">국내 최초 사업자간 디지털 금 &quot;금Pay&quot; 서비스 운영:</strong> 금
+          <strong className="text-amber-400">세계 최초 사업자간 디지털 금 &quot;금Pay&quot; 서비스 운영:</strong> 금
           거래의 혁신을 선도하며 기술력을 입증했습니다.
         </p>
         <p className="text-base md:text-lg">
